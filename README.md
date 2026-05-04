@@ -2,7 +2,7 @@
 
 **Задание 1 (Cisco Packet Tracer / HSRP)**: настроить отслеживание интерфейса `Gi0/0`
 
-[text](1/hsrp_advanced.pkt)
+[hsrp_advanced.pkt](1/hsrp_advanced.pkt)
 
 ![alt text](screens/Screenshot_2026-05-03_20-07-09.png)
 
