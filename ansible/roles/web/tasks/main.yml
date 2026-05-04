@@ -1,0 +1,22 @@
+- name: Ensure docroot exists
+  ansible.builtin.file:
+    path: "{{ web_docroot }}"
+    state: directory
+    mode: "0755"
+
+- name: Create index.html (node marker)
+  ansible.builtin.copy:
+    dest: "{{ web_docroot }}/index.html"
+    mode: "0644"
+    content: |
+      <html><body>
+      <h1>{{ inventory_hostname | upper }}</h1>
+      <p>hostname: {{ ansible_hostname }}</p>
+      </body></html>
+
+- name: Ensure nginx is enabled and running
+  ansible.builtin.service:
+    name: nginx
+    enabled: true
+    state: started
+

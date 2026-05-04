@@ -1,0 +1,36 @@
+global_defs {
+  router_id {{ inventory_hostname | upper }}
+  enable_script_security
+}
+
+vrrp_script check_web {
+  script "/usr/local/bin/check_web.sh {{ web_port }} {{ web_docroot }}"
+  user root
+  interval 3
+  timeout 2
+  fall 1
+  rise 1
+  weight -200
+}
+
+vrrp_instance {{ vrrp_instance }} {
+  state {{ keepalived_state }}
+  interface {{ keepalived_iface }}
+  virtual_router_id {{ virtual_router_id }}
+  priority {{ keepalived_priority }}
+  advert_int {{ advert_int }}
+
+  unicast_src_ip {{ keepalived_src_ip }}
+  unicast_peer {
+    {{ keepalived_peer_ip }}
+  }
+
+  virtual_ipaddress {
+    {{ vip_cidr }}
+  }
+
+  track_script {
+    check_web
+  }
+}
+

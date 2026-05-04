@@ -1,0 +1,13 @@
+- name: Configure keepalived + web on both nodes
+  hosts: keepalived
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: common
+      tags: [common, packages]
+    - role: web
+      tags: [web, nginx]
+    - role: keepalived
+      tags: [keepalived, vrrp]
+

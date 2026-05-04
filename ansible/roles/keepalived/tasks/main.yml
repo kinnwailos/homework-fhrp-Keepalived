@@ -1,0 +1,31 @@
+- name: Copy health-check script
+  ansible.builtin.copy:
+    src: "check_web.sh"
+    dest: "/usr/local/bin/check_web.sh"
+    mode: "0755"
+    owner: root
+    group: root
+
+- name: Set keepalived facts from inventory
+  ansible.builtin.set_fact:
+    keepalived_iface: "{{ vrrp_interfaces[inventory_hostname] }}"
+    keepalived_src_ip: "{{ vrrp_src_ips[inventory_hostname] }}"
+    keepalived_peer_ip: "{{ vrrp_unicast_peers[inventory_hostname] }}"
+    keepalived_priority: "{{ vrrp_priorities[inventory_hostname] }}"
+    keepalived_state: "{{ 'MASTER' if inventory_hostname == 'vm1' else 'BACKUP' }}"
+
+- name: Render keepalived.conf
+  ansible.builtin.template:
+    src: "keepalived.conf.j2"
+    dest: "/etc/keepalived/keepalived.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart keepalived
+
+- name: Ensure keepalived enabled and running
+  ansible.builtin.service:
+    name: keepalived
+    enabled: true
+    state: started
+

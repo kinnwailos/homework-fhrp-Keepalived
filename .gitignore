@@ -1,0 +1,6 @@
+.vagrant/
+*.retry
+.ansible/
+
+squashfs-root/
+*.AppImage

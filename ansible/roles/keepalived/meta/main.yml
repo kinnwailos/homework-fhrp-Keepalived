@@ -1,0 +1,9 @@
+galaxy_info:
+  author: homework
+  description: Keepalived VIP + vrrp_script health check
+  license: MIT
+  min_ansible_version: "2.14"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy

@@ -1,0 +1,29 @@
+vip_cidr: "192.168.56.15/24"
+web_port: 80
+web_docroot: "/var/www/html"
+
+# VRRP
+vrrp_instance: "VI_1"
+virtual_router_id: 15
+advert_int: 1
+
+# private_network interface on Ubuntu/jammy64 under VirtualBox is usually enp0s8
+vrrp_interfaces:
+  vm1: "enp0s8"
+  vm2: "enp0s8"
+
+# VRRP unicast source IPs (private_network static IPs from Vagrantfile)
+vrrp_src_ips:
+  vm1: "192.168.56.10"
+  vm2: "192.168.56.11"
+
+# Unicast peers (host-only network addresses)
+vrrp_unicast_peers:
+  vm1: "192.168.56.11"
+  vm2: "192.168.56.10"
+
+# Priorities (must not be 255; 255 makes address_owner and track weights get ignored)
+vrrp_priorities:
+  vm1: 150
+  vm2: 140
+
