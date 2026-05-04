@@ -11,7 +11,7 @@
 
 **Задание 2 (Linux / Keepalived)**: 2 “сервера” с keepalived+web, bash‑скрипт проверки, `vrrp_script` каждые 3 секунды, демонстрация переезда VIP
 
-[theck_web.sh](1/check_web.sh)
+[check_web.sh](1/check_web.sh)
 
 [keepalived.conf.j2](ansible/roles/keepalived/templates/keepalived.conf.j2)
 
